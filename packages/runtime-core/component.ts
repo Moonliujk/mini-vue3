@@ -30,11 +30,13 @@ function setupStatefulComponent(instance: any) {
     instance.proxy = new Proxy(instance, PublicInstanceProxyHandlers)
 
     if (setup) {
+        setCurInstance(instance);
         // 如果结果为函数，则将其视为 render 函数
         // 如果结果为对象，则将其注入到组件实例
         const setupRes = setup(instance.props, {
             emit: instance.emit
         });
+        setCurInstance(null);
 
         handleSetupRes(instance, setupRes);
     }
@@ -54,5 +56,15 @@ function finishComponentSetup(instance: any) {
     if (Component.render) {
         instance.render = Component.render;
     }
+}
+
+let curInstance = null;
+
+export function getCurrentInstance() {
+    return curInstance;
+}
+
+function setCurInstance(instance) {
+    curInstance = instance;
 }
 
