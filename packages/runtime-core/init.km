@@ -1,0 +1,162 @@
+{
+    "root": {
+        "data": {
+            "id": "d2f3prdytaw0",
+            "created": 1719928348231,
+            "text": "createApp"
+        },
+        "children": [
+            {
+                "data": {
+                    "id": "d2f3q1hlxlk0",
+                    "created": 1719928370219,
+                    "text": "app.mount",
+                    "layout_right_offset": {
+                        "x": -72.99999988396974,
+                        "y": 1.9999999968210886
+                    }
+                },
+                "children": [
+                    {
+                        "data": {
+                            "id": "d2f3qnp92o80",
+                            "created": 1719928418570,
+                            "text": "render"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "id": "d2f3qtxe7jk0",
+                                    "created": 1719928432123,
+                                    "text": "patch"
+                                },
+                                "children": [
+                                    {
+                                        "data": {
+                                            "id": "d2f3qxqaseg0",
+                                            "created": 1719928440401,
+                                            "text": "processComponent"
+                                        },
+                                        "children": [
+                                            {
+                                                "data": {
+                                                    "id": "d2f3r3pr1tc0",
+                                                    "created": 1719928453429,
+                                                    "text": "mountComponent"
+                                                },
+                                                "children": [
+                                                    {
+                                                        "data": {
+                                                            "id": "d2f3rd78baw0",
+                                                            "created": 1719928474077,
+                                                            "text": "const instance = createComponentInstance"
+                                                        },
+                                                        "children": []
+                                                    },
+                                                    {
+                                                        "data": {
+                                                            "id": "d2f3rpaoxls0",
+                                                            "created": 1719928500407,
+                                                            "text": "setupComponent(instance)"
+                                                        },
+                                                        "children": [
+                                                            {
+                                                                "data": {
+                                                                    "id": "d2f3s5jafhs0",
+                                                                    "created": 1719928535756,
+                                                                    "text": "initProps"
+                                                                },
+                                                                "children": []
+                                                            },
+                                                            {
+                                                                "data": {
+                                                                    "id": "d2f3s8ae78o0",
+                                                                    "created": 1719928541748,
+                                                                    "text": "initSlots"
+                                                                },
+                                                                "children": []
+                                                            },
+                                                            {
+                                                                "data": {
+                                                                    "id": "d2f3sbfbs200",
+                                                                    "created": 1719928548577,
+                                                                    "text": "setupStatefulComponent"
+                                                                },
+                                                                "children": []
+                                                            }
+                                                        ]
+                                                    },
+                                                    {
+                                                        "data": {
+                                                            "id": "d2f3rx45rs80",
+                                                            "created": 1719928517427,
+                                                            "text": "setupRenderEffect"
+                                                        },
+                                                        "children": [
+                                                            {
+                                                                "data": {
+                                                                    "id": "d2f3siwcea00",
+                                                                    "created": 1719928564843,
+                                                                    "text": "renderComponentRoot"
+                                                                },
+                                                                "children": [
+                                                                    {
+                                                                        "data": {
+                                                                            "id": "d2f3tddxo400",
+                                                                            "created": 1719928631210,
+                                                                            "text": "const subtree = instance.render"
+                                                                        },
+                                                                        "children": []
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "data": {
+                                                                    "id": "d2f3sphcic80",
+                                                                    "created": 1719928579174,
+                                                                    "text": "invokeArrayFns"
+                                                                },
+                                                                "children": []
+                                                            },
+                                                            {
+                                                                "data": {
+                                                                    "id": "d2f3suie0io0",
+                                                                    "created": 1719928590121,
+                                                                    "text": "patch(null, subTree)"
+                                                                },
+                                                                "children": []
+                                                            },
+                                                            {
+                                                                "data": {
+                                                                    "id": "d2f3t3inbj40",
+                                                                    "created": 1719928609728,
+                                                                    "text": "queuePostRenderEffect"
+                                                                },
+                                                                "children": []
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "data": {
+                                                    "id": "d2f3r74ciig0",
+                                                    "created": 1719928460842,
+                                                    "text": "updateComponent"
+                                                },
+                                                "children": []
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "template": "right",
+    "theme": "fresh-blue",
+    "version": "1.4.43"
+}

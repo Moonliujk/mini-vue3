@@ -1,0 +1,18 @@
+{
+  "name": "@my-vue3/runtime-core",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "./index.ts",
+  "module": "./index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@my-vue3/reactivity": "workspace:^",
+    "@my-vue3/share": "workspace:^"
+  }
+}
