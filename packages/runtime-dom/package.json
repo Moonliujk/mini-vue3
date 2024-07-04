@@ -1,5 +1,5 @@
 {
-  "name": "my-vue3-demo",
+  "name": "@my-vue3/runtime-dom",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@my-vue3/runtime-core": "workspace:^",
-    "@my-vue3/runtime-dom": "workspace:^"
+    "@my-vue3/runtime-core": "workspace:^"
   }
 }

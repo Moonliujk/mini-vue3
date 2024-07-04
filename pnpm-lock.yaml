@@ -63,6 +63,12 @@ importers:
         specifier: workspace:^
         version: link:../share
 
+  packages/runtime-dom:
+    dependencies:
+      '@my-vue3/runtime-core':
+        specifier: workspace:^
+        version: link:../runtime-core
+
   packages/share: {}
 
   packages/vue:
@@ -70,6 +76,9 @@ importers:
       '@my-vue3/runtime-core':
         specifier: workspace:^
         version: link:../runtime-core
+      '@my-vue3/runtime-dom':
+        specifier: workspace:^
+        version: link:../runtime-dom
 
 packages:
 

@@ -1,1 +1,1 @@
-export * from "@my-vue3/runtime-core";
+export * from "@my-vue3/runtime-dom";
