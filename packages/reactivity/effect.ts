@@ -96,6 +96,8 @@ export function trigger(target, key) {
 }
 
 export function triggerEffects(dep) {
+    // ES5 中不存在for... of, 但具有 Set
+    // 故下面的代码转化为ES5 会存在问题
     for (let effect of dep) {
         effect.scheduler ? effect.scheduler() : effect.run();
     }

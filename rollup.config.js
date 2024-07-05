@@ -12,6 +12,6 @@ export default {
     }],
     plugins: [
         resolve(),
-        typescript({ compilerOptions: {lib: ["es5", "es6", "dom", "es2017.object"], target: "es5"}}),
+        typescript({ compilerOptions: {lib: ["es5", "es6", "dom", "es2017.object"], target: "es6"}}),
     ]
 }

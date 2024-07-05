@@ -1,3 +1,4 @@
+import { proxyRefs } from "@my-vue3/reactivity";
 import { shallowReadonly } from "../reactivity/reactive";
 import { emit } from "./componentEmit";
 import { initProps } from "./componentProps";
@@ -13,6 +14,8 @@ export function createComponentInstance(vnode: any, parent: any) {
         provides: parent ? parent.provides : {},
         slots: [],
         parent,
+        subTree: null,
+        isMounted: false,
         emit: () => {}
     }
     component.emit = emit.bind(null, component) as any;
@@ -46,7 +49,7 @@ function setupStatefulComponent(instance: any) {
 function handleSetupRes(instance, setupRes: any) {
     // TODO 待实现 function情况
     if(typeof setupRes === 'object') {
-        instance.setupState = setupRes;
+        instance.setupState = proxyRefs(setupRes);
     }
 
     finishComponentSetup(instance);
