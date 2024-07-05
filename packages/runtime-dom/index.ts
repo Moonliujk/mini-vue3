@@ -3,18 +3,18 @@ import { createRender } from "@my-vue3/runtime-core";
 function createElement(type) {
     return document.createElement(type);
 }
-function patchProp(el, key, value) {
+function patchProp(el, key, prevVal, nextVal) {
     // onClick => click
     const isOn = (string: string) => /^on[A-Z]/.test(string);
     if (isOn(key)) {
       const eventName = key.slice(2).toLowerCase();
-      el.addEventListener(eventName, value);
+      el.addEventListener(eventName, nextVal);
     } else {
-      value =
-        typeof value === "string"
-          ? value
-          : (value as Array<string>).join(" ");
-      (el as HTMLElement).setAttribute(key, value as string);
+        if (nextVal) {
+            el.setAttribute(key, nextVal);
+        } else {
+            el.removeAttribute(key);
+        }
     }
 }
 function createTextNode(text) {

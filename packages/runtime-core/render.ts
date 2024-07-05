@@ -19,8 +19,8 @@ export function createRender(options) {
   }
 
   function patch(n1, n2: any, container: any, parentComponent: any) {
-    // n1 旧
-    // n2 新
+    // n1 新
+    // n2 旧
     const { type, shapeFlag } = n2;
     switch (type) {
       case Fragment:
@@ -64,9 +64,33 @@ export function createRender(options) {
   }
 
   function patchElement(n1, n2, container) {
-    console.log('patchElement');
-    console.log('n1: ', n1);
-    console.log('n2: ', n2);
+    console.log("应该更新 element");
+    console.log("旧的 vnode", n1);
+    console.log("新的 vnode", n2);
+
+    const newProps = n2.props || {};
+    const oldProps = n1.props || {};
+    const el = n2.el = n1.el;
+    patchProps(el, oldProps, newProps);
+  }
+
+  function patchProps(el, oldProps, newProps) {
+    if (oldProps === newProps) return;
+
+    for (let key in newProps) {
+        const oldProp = oldProps[key];
+        const newProp = newProps[key];
+
+        if (oldProp !== newProp) {
+            hotPatchProp(el, key, oldProp, newProp);
+        }
+    }
+
+    if (JSON.stringify(oldProps) === '{}') return;
+
+    for (const key in oldProps) {
+        if (!(key in newProps)) hotPatchProp(el, key, oldProps[key], null);
+    }
   }
 
   function mountComponent(initialVnode: any, container, parentComponent) {
@@ -79,6 +103,7 @@ export function createRender(options) {
     effect(() => {
         if (!instance.isMounted) {
             // init
+            console.log('init');
             const { proxy, render } = instance;
             const subTree = instance.subTree = render.call(proxy);
 
@@ -88,6 +113,7 @@ export function createRender(options) {
             instance.isMounted = true;
         } else {
             // update
+            console.log('update');
             const { proxy, render } = instance;
             const subTree = render.call(proxy);
             const prevSubtree = instance.subTree;
@@ -107,7 +133,7 @@ export function createRender(options) {
     if (props) {
         Object.entries(props).forEach(([key, value]) => {
             // onClick => click
-            hotPatchProp(el, key, value);
+            hotPatchProp(el, key, null, value);
         });
     }
 
