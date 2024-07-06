@@ -3,11 +3,12 @@ import { ShapeFlags, isObject } from "@my-vue3/share";
 export const Fragment = Symbol('Fragment');
 export const Text = Symbol('Text');
 
-export function createVNode(type, props = {}, children?) {
+export function createVNode(type, props?: any, children?) {
     const vnode = {
         type,
-        props,
+        props: props || {},
         children,
+        key: props && props.key,
         shapeFlag: getShapeFlag(type),
         el: null
     }

@@ -21,8 +21,18 @@ function createTextNode(text) {
     return document.createTextNode(text);
 }
 
-function insert(el, parent) {
-    return parent.append(el);
+function insert(el, parent, anchor) {
+    return parent.insertBefore(el, anchor || null);
+}
+
+function remove(el) {
+    if (el.parentNode) {
+        el.parentNode.removeChild(el);
+    }
+}
+
+function setElementText(container, txt) {
+    container.textContent = txt;
 }
 
 const render: any = createRender({
@@ -30,6 +40,8 @@ const render: any = createRender({
     createElement,
     patchProp,
     insert,
+    remove,
+    setElementText,
 });
 
 export function createApp(...arg) {
