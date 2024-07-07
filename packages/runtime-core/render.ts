@@ -4,6 +4,7 @@ import { Fragment, Text } from "./vnode";
 import { createAppAPI } from "./createApp";
 import { effect } from "@my-vue3/reactivity";
 import { shouldUpdateComponent } from "./componentsUpdateUtils";
+import { queueJob } from "./nextTick";
 
 
 export function createRender(options) {
@@ -306,6 +307,10 @@ export function createRender(options) {
             patch(prevSubtree, subTree, container, anchor, instance);
             initialVnode.el = subTree.el;
         }
+    }, {
+      scheduler() {
+        queueJob(instance.update);
+      }
     });
   }
 
