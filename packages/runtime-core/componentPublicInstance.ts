@@ -3,6 +3,7 @@ import { hasOwn } from "@my-vue3/share";
 const publicPropertyMap = {
     $el: (i) => i.vnode.el,
     $slots: (i) => i.slots,
+    $props: (i) => i.props,
 };
 
 export const PublicInstanceProxyHandlers = {

@@ -8,6 +8,7 @@ export function provide(key, val) {
         const parentProvides = instance.parent.provides;
         if (provides === parentProvides) {
             // 说明是初始化
+            // BRAVO 使用原型链的方式完成对于provide值的查找
             provides = instance.provides = Object.create(parentProvides);
         }
         provides[key] = val;

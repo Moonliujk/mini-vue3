@@ -3,6 +3,7 @@ import { ShapeFlags } from "@my-vue3/share";
 import { Fragment, Text } from "./vnode";
 import { createAppAPI } from "./createApp";
 import { effect } from "@my-vue3/reactivity";
+import { shouldUpdateComponent } from "./componentsUpdateUtils";
 
 
 export function createRender(options) {
@@ -54,7 +55,23 @@ export function createRender(options) {
   }
 
   function processComponent(n1, n2: any, container: any, anchor: any, parentComponent: any) {
-    mountComponent(n2, container, anchor, parentComponent);
+    if (!n1) {
+      mountComponent(n2, container, anchor, parentComponent);
+    } else {
+      updateComponent(n1, n2);
+    }
+  }
+
+  function updateComponent(n1, n2) {
+    const instance = n2.component = n1.component;
+    
+    if (shouldUpdateComponent(n1, n2)) {
+      instance.next = n2;
+      instance.update();
+    } else {
+      n2.el = n1.el;
+      instance.vnode = n2;
+    }
   }
 
   function processElement(n1, n2: any, container: any, anchor: any, parentComponent) {
@@ -255,13 +272,13 @@ export function createRender(options) {
   }
 
   function mountComponent(initialVnode: any, container, anchor, parentComponent) {
-    const instance = createComponentInstance(initialVnode, parentComponent);
+    const instance = initialVnode.component = createComponentInstance(initialVnode, parentComponent);
     setupComponent(instance);
     setupRenderEffect(instance, container, anchor, initialVnode);
   }
 
   function setupRenderEffect(instance, container, anchor, initialVnode) {
-    effect(() => {
+    instance.update = effect(() => {
         if (!instance.isMounted) {
             // init
             console.log('init');
@@ -275,6 +292,12 @@ export function createRender(options) {
         } else {
             // update
             console.log('update');
+            const {next} = instance;
+            if (next) {
+              instance.vnode = next;
+              instance.next = null;
+              instance.props = next.props;
+            }
             const { proxy, render } = instance;
             const subTree = render.call(proxy);
             const prevSubtree = instance.subTree;
@@ -316,7 +339,7 @@ export function createRender(options) {
   }
 }
 
-// 最长递增子序列算法
+// COOL: 最长递增子序列算法
 function getSequence(arr: number[]): number[] {
     const p = arr.slice();
     const result = [0];
@@ -356,4 +379,4 @@ function getSequence(arr: number[]): number[] {
       v = p[v];
     }
     return result;
-  }
+}
