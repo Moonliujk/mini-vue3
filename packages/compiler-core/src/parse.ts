@@ -91,7 +91,7 @@ function parseElement(context) {
 function parseTag(context: any, type: TypeTag) {
     // <div></div>
     const tag = context.source.match(/^<\/?([a-z]+)>/);
-    console.log('tag', tag);
+    // console.log('tag', tag);
     advancedBy(context, tag[0].length);
     if (type === TypeTag.END) return;
 
