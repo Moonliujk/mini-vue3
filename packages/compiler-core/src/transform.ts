@@ -1,24 +1,47 @@
-export function transform(root, options) {
-    const context = createTransformContext(root, options)
-    console.log('root', root);
+import { NodeType } from "./ast";
+import { TO_DISPLAY_STRING } from "./runtimeHelpers";
+
+export function transform(root, options = {}) {
+    const context = createTransformContext(root, options);
     traverseNode(root.children[0], context);
+    createCodegenRoot(root);
+
+    root.helpers.push(...context.helpers.keys());
+}
+
+function createCodegenRoot(root) {
+    root.codegenRoot = root.children[0];
 }
 
 function createTransformContext(root, options) {
-    return {
+    const context = {
         root,
-        nodeTransforms: options.nodeTransforms || []
-    };
+        nodeTransforms: options.nodeTransforms || [],
+        helpers: new Map(),
+        helper (name) {
+            const count = context.helpers.get(name) || 0;
+            context.helpers.set(name, count + 1);
+        }
+    }
+    return context;
 }
 
 function traverseNode(node, context) {
-    console.log(node);
+    const type = node.type;
     const children = node.children;
     const nodeTransforms = context.nodeTransforms;
 
     nodeTransforms.forEach(plugin => plugin(node));
 
-    traverseChildren(children, context);
+    switch(type) {
+        case NodeType.ELEMENT:
+        case NodeType.ROOT:
+            traverseChildren(children, context);
+            break;
+        case NodeType.INTERPOLATION:
+            context.helper(TO_DISPLAY_STRING);
+            break;
+    }
 }
 
 

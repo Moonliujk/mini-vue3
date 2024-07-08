@@ -17,7 +17,11 @@ function createSource(content) {
 }
 
 function createRoot(children) {
-    return {children};
+    return {
+        children,
+        type: NodeType.ROOT,
+        helpers: []
+    };
 }
 
 function parseChildren(context, tag = '') {

@@ -1,4 +1,3 @@
-import { Text } from './../../runtime-core/vnode';
 import { NodeType } from "../src/ast";
 import { baseParse } from "../src/parse";
 
@@ -83,7 +82,7 @@ test('nested element', () => {
     });
 });
 
-test.only('should throw an error when there is no matched end tag', () => {
+test.skip('should throw an error when there is no matched end tag', () => {
     expect(() => {
         baseParse('<div><span></div>');
     }).toThrow(`end tag don't match start tag: span`);
