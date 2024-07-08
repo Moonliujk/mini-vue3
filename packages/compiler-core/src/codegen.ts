@@ -1,5 +1,6 @@
+import { isString } from "@my-vue3/share";
 import { NodeType } from "./ast";
-import { helperNameMap, TO_DISPLAY_STRING } from "./runtimeHelpers";
+import { helperNameMap, TO_DISPLAY_STRING, CREATE_ELEMENT_VNODE } from "./runtimeHelpers";
 
 export function generate(ast) {
     const context = createCodegenContext();
@@ -14,7 +15,7 @@ export function generate(ast) {
 
     push(`function ${functionName}(${signature}) {`);
     push(`return `);
-    genNode(ast.codegenRoot, context);
+    genNode(ast.codegenNode, context);
     push('}');
 
 
@@ -34,34 +35,94 @@ function genFunctionPreamble(ast: any, context) {
 }
 
 function genNode(node: any, context) {
-    const {push} = context;
-
     switch(node.type) {
         case NodeType.TEXT:
-            getText(node, context);
+            genText(node, context);
             break;
         case NodeType.INTERPOLATION:
-            getInterpolation(node, context);
+            genInterpolation(node, context);
+            break
+        case NodeType.ELEMENT:
+            genElement(node, context);
             break
         case NodeType.SIMPLE_EXPRESSION:
-            getExpression(node, context);
+            genExpression(node, context);
+            break
+        case NodeType.COMPOUND_ELEMENT:
+            genCompoundElement(node, context);
             break
     }
 }
 
-function getExpression(node: any, context: any) {
+function genCompoundElement(node, context){
+    const { push } = context;
+    let children = node.children;
+
+    for (let i=0; i<children.length; i++) {
+        let child = children[i];
+        if (isString(child)) {
+            push(child);
+        } else {
+            genNode(child, context);
+        }
+    }
+}
+
+function genExpression(node: any, context: any) {
     const {push} = context;
     push(`${node.content}`);
 }
 
-function getInterpolation(node: any, context: any) {
+function genElement(node, context) {
+    const {push, helper} = context;
+    const { tag, props, children } = node;
+
+    push(`${helper(CREATE_ELEMENT_VNODE)}(`);
+    genNodeList(genNullableArgs([tag, props, children]), context);
+    push(')');
+}
+
+function genNodeList(nodes: any, context: any) {
+    const { push } = context;
+    for (let i = 0; i < nodes.length; i++) {
+      const node = nodes[i];
+  
+      if (isString(node)) {
+        push(`${node}`);
+      } else {
+        genNode(node[0], context);
+      }
+      // node 和 node 之间需要加上 逗号(,)
+      // 但是最后一个不需要 "div", [props], [children]
+      if (i < nodes.length - 1) {
+        push(", ");
+      }
+    }
+  }
+  
+  function genNullableArgs(args) {
+    // 把末尾为null 的都删除掉
+    // vue3源码中，后面可能会包含 patchFlag、dynamicProps 等编译优化的信息
+    // 而这些信息有可能是不存在的，所以在这边的时候需要删除掉
+    let i = args.length;
+    // 这里 i-- 用的还是特别的巧妙的
+    // 当为0 的时候自然就退出循环了
+    while (i--) {
+      if (args[i] != null) break;
+    }
+  
+    // 把为 falsy 的值都替换成 "null"
+    return args.slice(0, i + 1).map((arg) => arg || "null");
+  }
+
+function genInterpolation(node: any, context: any) {
     const {push, helper} = context;
     push(`${helper(TO_DISPLAY_STRING)}(`);
     genNode(node.content, context);
     push(')');
 }
 
-function getText(node: any, context: any) {
+function genText(node: any, context: any) {
     const {push} = context;
     push(`"${node.content}"`);
 }
