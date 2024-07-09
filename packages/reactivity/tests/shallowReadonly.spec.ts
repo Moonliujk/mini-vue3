@@ -1,4 +1,4 @@
-import { isReactive, isReadonly, shallowReadonly } from "../reactive";
+import { isReactive, isReadonly, shallowReadonly } from "../src/reactive";
 
 describe('shallowReadonly', () => {
     it('happy pass', () => {

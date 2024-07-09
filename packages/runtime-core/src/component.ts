@@ -1,5 +1,4 @@
-import { proxyRefs } from "@my-vue3/reactivity";
-import { shallowReadonly } from "../reactivity/reactive";
+import { proxyRefs, shallowReadonly } from "@my-vue3/reactivity";
 import { emit } from "./componentEmit";
 import { initProps } from "./componentProps";
 import { PublicInstanceProxyHandlers } from "./componentPublicInstance";

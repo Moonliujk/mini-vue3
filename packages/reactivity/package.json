@@ -2,7 +2,7 @@
   "name": "@my-vue3/reactivity",
   "version": "0.0.1",
   "description": "",
-  "main": "index.ts",
+  "main": "src/index.ts",
   "directories": {
     "test": "tests"
   },
