@@ -90,7 +90,7 @@ function genNodeList(nodes: any, context: any) {
       if (isString(node)) {
         push(`${node}`);
       } else {
-        genNode(node[0], context);
+        genNode(node, context);
       }
       // node 和 node 之间需要加上 逗号(,)
       // 但是最后一个不需要 "div", [props], [children]

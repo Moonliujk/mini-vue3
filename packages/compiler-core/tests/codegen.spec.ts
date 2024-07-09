@@ -38,7 +38,7 @@ describe('codegen', () => {
     it('compound element', () => {
         const ast = baseParse('<div>hi, {{message}}</div>');
         transform(ast, {
-            nodeTransforms: [transformExpression, transformElement, transformCompoundElement]
+            nodeTransforms: [transformExpression, transformCompoundElement, transformElement]
         });
 
         const {code} = generate(ast);
