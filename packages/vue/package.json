@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@my-vue3/reactivity": "workspace:^",
+    "@my-vue3/compiler-core": "workspace:^",
     "@my-vue3/runtime-core": "workspace:^",
     "@my-vue3/runtime-dom": "workspace:^"
   }

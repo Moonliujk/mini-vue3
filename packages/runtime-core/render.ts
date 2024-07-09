@@ -284,7 +284,7 @@ export function createRender(options) {
             // init
             console.log('init');
             const { proxy, render } = instance;
-            const subTree = instance.subTree = render.call(proxy);
+            const subTree = instance.subTree = render.call(proxy, proxy);
 
             patch(null, subTree, container, anchor, instance);
             initialVnode.el = subTree.el;
@@ -300,7 +300,7 @@ export function createRender(options) {
               instance.props = next.props;
             }
             const { proxy, render } = instance;
-            const subTree = render.call(proxy);
+            const subTree = render.call(proxy, proxy);
             const prevSubtree = instance.subTree;
             instance.subTree = subTree;
 

@@ -79,9 +79,9 @@ importers:
 
   packages/vue:
     dependencies:
-      '@my-vue3/reactivity':
+      '@my-vue3/compiler-core':
         specifier: workspace:^
-        version: link:../reactivity
+        version: link:../compiler-core
       '@my-vue3/runtime-core':
         specifier: workspace:^
         version: link:../runtime-core
