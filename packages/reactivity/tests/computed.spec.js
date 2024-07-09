@@ -1,5 +1,6 @@
-import {reactive} from '../reactive.ts';
-import { computed } from "../computed.ts";
+import {reactive} from '../src/reactive.ts';
+import { computed } from "../src/computed.ts";
+import {vi} from 'vitest';
 
 describe('computed', () => {
     it('happy pass', () => {
@@ -16,7 +17,7 @@ describe('computed', () => {
         const value = reactive({
             foo: 1
         });
-        const getter = jest.fn(() => {
+        const getter = vi.fn(() => {
             return value.foo;
         });
         const cValue = computed(getter);
